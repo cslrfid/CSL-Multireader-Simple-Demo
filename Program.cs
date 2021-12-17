@@ -96,7 +96,7 @@ namespace CSL_Console_Mode_Demo
 
         static void InventorySetting(HighLevelInterface reader)
         {
-            //reader.SetHoppingChannels(CSLibrary.Constants.RegionCode.TW);
+            //reader.SetHoppingChannels(CSLibrary.Constants.RegionCode.TW);  // please make sure area is fir fir your country
 
             reader.SetAntennaPortState(0, CSLibrary.Constants.AntennaPortState.ENABLED);
             reader.SetAntennaPortState(1, CSLibrary.Constants.AntennaPortState.DISABLED);
