@@ -46,6 +46,10 @@ namespace CSL_Console_Mode_Demo
                                 break;
 
                             default:      // Something wrong, please contact CSL technical support.
+                                {
+                                    Console.Write("Mac Error : 0x{0:X}, please report mac error code to CSL technical support.", Reader.LastMacErrorCode);
+                                }
+
                                 break;
                         }
                         break;
@@ -96,12 +100,13 @@ namespace CSL_Console_Mode_Demo
 
         static void InventorySetting(HighLevelInterface reader)
         {
-            //reader.SetHoppingChannels(CSLibrary.Constants.RegionCode.TW);  // please make sure area is fir fir your country
+            //reader.SetHoppingChannels(CSLibrary.Constants.RegionCode.TW);  // please make sure set to your country
 
-            reader.SetAntennaPortState(0, CSLibrary.Constants.AntennaPortState.ENABLED);
+            // for CS203X
+            reader.SetAntennaPortState(0, CSLibrary.Constants.AntennaPortState.DISABLED);
             reader.SetAntennaPortState(1, CSLibrary.Constants.AntennaPortState.DISABLED);
             reader.SetAntennaPortState(2, CSLibrary.Constants.AntennaPortState.DISABLED);
-            reader.SetAntennaPortState(3, CSLibrary.Constants.AntennaPortState.DISABLED);
+            reader.SetAntennaPortState(3, CSLibrary.Constants.AntennaPortState.ENABLED); // you must enable antenna 3 when using CS203X
 
             CSLibrary.Structures.DynamicQParms QParms = new CSLibrary.Structures.DynamicQParms();
 
