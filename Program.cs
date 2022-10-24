@@ -32,6 +32,7 @@ namespace CSL_Console_Mode_Demo
                                 break;
 
                             case 0x306:  // Reader too hot
+                            case 0x309:  // reflected power too high
                                 System.Threading.Thread reconnect = new Thread((System.Threading.ThreadStart)delegate
                                 {
                                     HighLevelInterface hotReader = (HighLevelInterface)(sender);
