@@ -32,18 +32,30 @@ namespace CSL_Console_Mode_Demo
                                 break;
 
                             case 0x306:  // Reader too hot
-                            case 0x309:  // reflected power too high
                                 System.Threading.Thread reconnect = new Thread((System.Threading.ThreadStart)delegate
                                 {
                                     HighLevelInterface hotReader = (HighLevelInterface)(sender);
 
-                                    Console.Write("Reader too hot IP {0} : ", hotReader.Name);
-
+                                    Console.WriteLine("Reader stoppeed.  Reader too hot IP {0} : ", hotReader.Name);
+                                    Console.WriteLine("Start again in 3 minutes....");
                                     System.Threading.Thread.Sleep(180 * 1000); // wait 3 minutes
                                     hotReader.StartOperation(CSLibrary.Constants.Operation.TAG_RANGING, false);
                                 });
                                 reconnect.Start();
 
+                                break;
+
+                            case 0x309:  // Reflected power too high
+                                System.Threading.Thread reconnectReflectivePower = new Thread((System.Threading.ThreadStart)delegate
+                                {
+                                    HighLevelInterface reader = (HighLevelInterface)(sender);
+
+                                    Console.WriteLine("Reader stoppeed.  Reflected power too high {0} : ", reader.Name);
+                                    Console.WriteLine("Start again in 3 seconds....");
+                                    System.Threading.Thread.Sleep(3 * 1000); // wait 3 seconds
+                                    reader.StartOperation(CSLibrary.Constants.Operation.TAG_RANGING, false);
+                                });
+                                reconnectReflectivePower.Start();
                                 break;
 
                             default:      // Something wrong, please contact CSL technical support.
@@ -53,7 +65,6 @@ namespace CSL_Console_Mode_Demo
 
                                 break;
                         }
-                        break;
                         break;
                     case CSLibrary.Constants.RFState.BUSY:
                         break;
